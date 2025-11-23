@@ -167,7 +167,7 @@ $structures = $evenement->getStructures();
                     </div>
                     <div class="col-lg-4 mb-4">
                         <div class="chart-container fade-in-up">
-                            <h5 class="mb-3"><i class="fas fa-exclamation-circle me-2"></i>Evaluation des risques</h5>
+                            <h5 class="mb-3"><i class="fas fa-exclamation-circle me-2"></i>Evaluation du risque</h5>
                             <canvas id="graviteChart"></canvas>
                         </div>
                     </div>

@@ -97,7 +97,7 @@ if (empty($evenements)) {
 }
 
 // Génération du rapport HTML/PDF
-$titre = count($evenements) > 1 ? 'Rapport d\'Événements Aéroportuaires' : 'Rapport d\'Événement Aéroportuaire';
+$titre = count($evenements) > 1 ? 'compte rendu d’événement de sûreté ' : 'compte rendu d’événement de sûreté ';
 $date_generation = date('d/m/Y H:i:s');
 
 // Labels pour l'affichage

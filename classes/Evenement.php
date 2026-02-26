@@ -7,6 +7,7 @@ class Evenement {
 
     public $id;
     public $nom_aeroport;
+    public $autre_aeroport;
     public $lieu;
     public $structure;
     public $titre_evenement;
@@ -32,7 +33,7 @@ class Evenement {
     // Créer un événement
     public function create() {
         $query = "INSERT INTO " . $this->table_name . " 
-                 SET nom_aeroport=:nom_aeroport, lieu=:lieu, structure=:structure, 
+                 SET nom_aeroport=:nom_aeroport, autre_aeroport=:autre_aeroport, lieu=:lieu, structure=:structure, 
                      titre_evenement=:titre_evenement, date_evenement=:date_evenement, 
                      heure_evenement=:heure_evenement, type_aeronef=:type_aeronef, 
                      immatriculation=:immatriculation, phase_vol=:phase_vol, 
@@ -46,6 +47,7 @@ class Evenement {
 
         // Nettoyage des données
         $this->nom_aeroport = htmlspecialchars(strip_tags($this->nom_aeroport));
+        $this->autre_aeroport = $this->autre_aeroport ? htmlspecialchars(strip_tags($this->autre_aeroport)) : null;
         $this->lieu = htmlspecialchars(strip_tags($this->lieu));
         $this->structure = htmlspecialchars(strip_tags($this->structure));
         $this->titre_evenement = htmlspecialchars(strip_tags($this->titre_evenement));
@@ -54,6 +56,7 @@ class Evenement {
 
         // Liaison des paramètres
         $stmt->bindParam(":nom_aeroport", $this->nom_aeroport);
+        $stmt->bindParam(":autre_aeroport", $this->autre_aeroport);
         $stmt->bindParam(":lieu", $this->lieu);
         $stmt->bindParam(":structure", $this->structure);
         $stmt->bindParam(":titre_evenement", $this->titre_evenement);
@@ -149,6 +152,7 @@ class Evenement {
 
         if($row) {
             $this->nom_aeroport = $row['nom_aeroport'];
+            $this->autre_aeroport = $row['autre_aeroport'];
             $this->lieu = $row['lieu'];
             $this->structure = $row['structure'];
             $this->titre_evenement = $row['titre_evenement'];
@@ -174,7 +178,7 @@ class Evenement {
     // Modifier un événement
     public function update() {
         $query = "UPDATE " . $this->table_name . " 
-                 SET nom_aeroport=:nom_aeroport, lieu=:lieu, structure=:structure, 
+                 SET nom_aeroport=:nom_aeroport, autre_aeroport=:autre_aeroport, lieu=:lieu, structure=:structure, 
                      titre_evenement=:titre_evenement, date_evenement=:date_evenement, 
                      heure_evenement=:heure_evenement, type_aeronef=:type_aeronef, 
                      immatriculation=:immatriculation, phase_vol=:phase_vol, 
@@ -189,6 +193,7 @@ class Evenement {
 
         // Nettoyage des données
         $this->nom_aeroport = htmlspecialchars(strip_tags($this->nom_aeroport));
+        $this->autre_aeroport = $this->autre_aeroport ? htmlspecialchars(strip_tags($this->autre_aeroport)) : null;
         $this->lieu = htmlspecialchars(strip_tags($this->lieu));
         $this->structure = htmlspecialchars(strip_tags($this->structure));
         $this->titre_evenement = htmlspecialchars(strip_tags($this->titre_evenement));
@@ -198,6 +203,7 @@ class Evenement {
         // Liaison des paramètres
         $stmt->bindParam(":id", $this->id);
         $stmt->bindParam(":nom_aeroport", $this->nom_aeroport);
+        $stmt->bindParam(":autre_aeroport", $this->autre_aeroport);
         $stmt->bindParam(":lieu", $this->lieu);
         $stmt->bindParam(":structure", $this->structure);
         $stmt->bindParam(":titre_evenement", $this->titre_evenement);

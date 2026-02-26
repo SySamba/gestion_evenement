@@ -9,6 +9,7 @@ if($_POST) {
 
     // Assignation des valeurs
     $evenement->nom_aeroport = $_POST['nom_aeroport'];
+    $evenement->autre_aeroport = ($_POST['nom_aeroport'] === 'AUTRES' && !empty($_POST['autre_aeroport'])) ? $_POST['autre_aeroport'] : null;
     $evenement->lieu = $_POST['lieu'];
     $evenement->structure = $_POST['structure'];
     $evenement->titre_evenement = $_POST['titre_evenement'];

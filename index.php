@@ -184,15 +184,20 @@ $structures = $evenement->getStructures();
                         <form id="ajouterForm" action="actions/ajouter_evenement.php" method="POST">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Aéroport *</label>
-                                    <select class="form-select" name="nom_aeroport" required>
+                                    <label class="form-label">Aéroport</label>
+                                    <select class="form-select" name="nom_aeroport" id="nom_aeroport">
                                         <option value="">Sélectionner un aéroport</option>
                                         <?php foreach($aeroports as $aeroport): ?>
                                             <option value="<?php echo $aeroport['code']; ?>">
                                                 <?php echo $aeroport['code'] . ' - ' . $aeroport['nom']; ?>
                                             </option>
                                         <?php endforeach; ?>
+                                        <option value="AUTRES">Autres</option>
                                     </select>
+                                </div>
+                                <div class="col-md-6 mb-3" id="autre_aeroport_container" style="display: none;">
+                                    <label class="form-label">Nom de l'aéroport</label>
+                                    <input type="text" class="form-control" name="autre_aeroport" id="autre_aeroport" placeholder="Entrer le nom de l'aéroport">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Lieu *</label>
@@ -1363,6 +1368,21 @@ $structures = $evenement->getStructures();
                 window.location.href = 'logout.php';
             }
         }
+
+        // Gérer l'affichage du champ personnalisé pour l'aéroport "Autres"
+        document.getElementById('nom_aeroport').addEventListener('change', function() {
+            const autreContainer = document.getElementById('autre_aeroport_container');
+            const autreInput = document.getElementById('autre_aeroport');
+            
+            if (this.value === 'AUTRES') {
+                autreContainer.style.display = 'block';
+                autreInput.required = true;
+            } else {
+                autreContainer.style.display = 'none';
+                autreInput.required = false;
+                autreInput.value = '';
+            }
+        });
     </script>
 </body>
 </html>

@@ -115,15 +115,20 @@ $categories_array = !empty($evenement->categories_evenement) ? explode(',', $eve
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Aéroport *</label>
-                            <select class="form-select" name="nom_aeroport" required>
+                            <label class="form-label">Aéroport</label>
+                            <select class="form-select" name="nom_aeroport" id="nom_aeroport_edit">
                                 <option value="">Sélectionner un aéroport</option>
                                 <?php foreach($aeroports as $aeroport): ?>
                                     <option value="<?php echo $aeroport['code']; ?>" <?php echo ($aeroport['code'] == $evenement->nom_aeroport) ? 'selected' : ''; ?>>
                                         <?php echo $aeroport['code'] . ' - ' . $aeroport['nom']; ?>
                                     </option>
                                 <?php endforeach; ?>
+                                <option value="AUTRES" <?php echo ($evenement->nom_aeroport == 'AUTRES') ? 'selected' : ''; ?>>Autres</option>
                             </select>
+                        </div>
+                        <div class="col-md-6 mb-3" id="autre_aeroport_container_edit" style="display: <?php echo ($evenement->nom_aeroport == 'AUTRES') ? 'block' : 'none'; ?>;">
+                            <label class="form-label">Nom de l'aéroport</label>
+                            <input type="text" class="form-control" name="autre_aeroport" id="autre_aeroport_edit" placeholder="Entrer le nom de l'aéroport" value="<?php echo ($evenement->nom_aeroport == 'AUTRES' && !empty($evenement->autre_aeroport)) ? htmlspecialchars($evenement->autre_aeroport) : ''; ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Lieu *</label>
@@ -298,6 +303,21 @@ $categories_array = !empty($evenement->categories_evenement) ? explode(',', $eve
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Gérer l'affichage du champ personnalisé pour l'aéroport "Autres"
+        document.getElementById('nom_aeroport_edit').addEventListener('change', function() {
+            const autreContainer = document.getElementById('autre_aeroport_container_edit');
+            const autreInput = document.getElementById('autre_aeroport_edit');
+            
+            if (this.value === 'AUTRES') {
+                autreContainer.style.display = 'block';
+                autreInput.required = true;
+            } else {
+                autreContainer.style.display = 'none';
+                autreInput.required = false;
+                autreInput.value = '';
+            }
+        });
+
         // Validation du formulaire
         document.getElementById('modifierForm').addEventListener('submit', function(e) {
             // Vérifier les domaines de sûreté
